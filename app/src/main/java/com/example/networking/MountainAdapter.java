@@ -14,12 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MountainAdapter extends RecyclerView.Adapter<MountainAdapter.ViewHolder> {
 
-    private ArrayList<Mountain> mountains;
+    public ArrayList<Mountain> mountains;
     private LayoutInflater layoutInflater;
 
-    MountainAdapter(Context context, ArrayList<Mountain> mountains) {
-        this.layoutInflater = LayoutInflater.from(context);
-        this.mountains = mountains;
+    MountainAdapter() {
     }
 
     @Override
