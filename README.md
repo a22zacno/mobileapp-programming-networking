@@ -1,9 +1,16 @@
 
 # Rapport
 
-**Skriv din rapport här!**
+At first I started by implementing the recyclerview widget into the activity main along with the recycler item layout. Next up I created the mountain class to store the json data,
+and created getters and setters for it. Then I created a new JSONtask to fetch the online json-file. Afterwards the MountainAdapter class was created in order to add things to the
+recyclerview. After that I added the code:
 
-_Du kan ta bort all text som finns sedan tidigare_.
+        "Gson gson = new Gson();
+
+        Type type = new TypeToken<ArrayList<Mountain>>() {}.getType();
+        ArrayList<Mountain> dynastyArrayList = gson.fromJson(json, type);"
+
+which used gson in order to parse the data and put it into the recyclerview. Since the adapter updated the titles of the recycler_item, the names of the mountains were now displayed
 
 ## Följande grundsyn gäller dugga-svar:
 
@@ -16,24 +23,29 @@ _Du kan ta bort all text som finns sedan tidigare_.
 Programkod ska se ut som exemplet nedan. Koden måste vara korrekt indenterad då den blir lättare att läsa vilket gör det lättare att hitta syntaktiska fel.
 
 ```
-function errorCallback(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            // Geolocation API stöds inte, gör något
-            break;
-        case error.POSITION_UNAVAILABLE:
-            // Misslyckat positionsanrop, gör något
-            break;
-        case error.UNKNOWN_ERROR:
-            // Okänt fel, gör något
-            break;
+    public void onPostExecute(String json) {
+        Log.d("MainActivity", json);
+        Gson gson = new Gson();
+
+        Type type = new TypeToken<ArrayList<Mountain>>() {}.getType();
+        ArrayList<Mountain> dynastyArrayList = gson.fromJson(json, type);
+
+        RecyclerView view = findViewById(R.id.recycler_view);
+        MountainAdapter adapter = new MountainAdapter(MainActivity.this, dynastyArrayList, new MountainAdapter.OnClickListener() {
+            @Override
+            public void onClick(Mountain item) {
+                Log.d("==>","On Click works");
+            }
+        });
+
+        view.setAdapter(adapter);
+        view.setLayoutManager(new LinearLayoutManager(MainActivity.this));
     }
-}
 ```
 
 Bilder läggs i samma mapp som markdown-filen.
 
-![](android.png)
+![](mountain names.png)
 
 Läs gärna:
 
